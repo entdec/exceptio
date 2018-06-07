@@ -35,3 +35,4 @@ module Exceptio
 end
 
 require "exceptio/railtie" if defined?(::Rails)
+require "exceptio/recording"

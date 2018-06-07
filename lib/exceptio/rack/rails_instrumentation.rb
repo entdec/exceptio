@@ -21,27 +21,24 @@ module Exceptio
       def call_with_appsignal_monitoring(env)
         request = ActionDispatch::Request.new(env)
 
-        # transaction = Appsignal::Transaction.create(
-        #     request_id(env),
-        #     Appsignal::Transaction::HTTP_REQUEST,
-        #     request,
-        #     :params_method => :filtered_parameters
-        # )
+        recording = Exceptio::Recording.create(
+            request_id(env),
+            'http_request',
+            request,
+            :params_method => :filtered_parameters
+        )
         begin
           @app.call(env)
         rescue Exception => error # rubocop:disable Lint/RescueException
-          # transaction.set_error(error)
-          Exceptio.logger.debug "request-id: #{request_id(env)}, error: #{error}"
-          raise error
-        ensure
+          recording.set_error(error)
           controller = env["action_controller.instance"]
           if controller
-            # transaction.set_action_if_nil("#{controller.class}##{controller.action_name}")
+            recording.set_metadata("action", "#{controller.class}##{controller.action_name}")
           end
-          # transaction.set_http_or_background_queue_start
-          # transaction.set_metadata("path", request.path)
-          # transaction.set_metadata("method", request.request_method)
-          # Appsignal::Transaction.complete_current!
+          recording.set_metadata("path", request.path)
+          recording.set_metadata("method", request.request_method)
+          Exceptio::Recording.store!
+          raise error
         end
       end
 
