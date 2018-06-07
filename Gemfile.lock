@@ -121,6 +121,7 @@ PLATFORMS
 
 DEPENDENCIES
   exceptio!
+  rails (~> 5.1)
   sqlite3
 
 BUNDLED WITH
