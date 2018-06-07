@@ -14,13 +14,12 @@ module Exceptio
         #if Appsignal.active?
           call_with_appsignal_monitoring(env)
         #else
-          @app.call(env)
+          # @app.call(env)
         #end
       end
 
       def call_with_appsignal_monitoring(env)
         request = ActionDispatch::Request.new(env)
-        Exceptio.logger.debug "With Appsignal::Rack::RailsInstrumentation"
 
         # transaction = Appsignal::Transaction.create(
         #     request_id(env),
@@ -28,10 +27,12 @@ module Exceptio
         #     request,
         #     :params_method => :filtered_parameters
         # )
+        Exceptio.logger.debug "With Exceptio::Rack::RailsInstrumentation"
         begin
           @app.call(env)
         rescue Exception => error # rubocop:disable Lint/RescueException
-          transaction.set_error(error)
+          # transaction.set_error(error)
+          Exceptio.logger.debug "request-id: #{request_id(env)}, error: #{error}"
           raise error
         ensure
           controller = env["action_controller.instance"]
