@@ -27,7 +27,6 @@ module Exceptio
         #     request,
         #     :params_method => :filtered_parameters
         # )
-        Exceptio.logger.debug "With Exceptio::Rack::RailsInstrumentation"
         begin
           @app.call(env)
         rescue Exception => error # rubocop:disable Lint/RescueException
