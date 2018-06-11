@@ -3,6 +3,9 @@ require "exceptio/rack/rails_instrumentation"
 module Exceptio
   # @api private
   class Recording
+
+    attr_reader :recording_id
+
     class << self
       def create(recording_id, namespace, request, options = {})
         # Allow middleware to force a new recording
