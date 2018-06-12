@@ -31,6 +31,10 @@ module Exceptio
     def logger
       config.logger
     end
+
+    def active?
+      false
+    end
   end
 end
 
