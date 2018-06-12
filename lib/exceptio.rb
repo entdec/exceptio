@@ -9,7 +9,7 @@ module Exceptio
 
     def initialize
       @logger = Logger.new(STDOUT)
-      @logger.level = Logger::DEBUG
+      @logger.level = Logger::WARN
       @base_controller = '::ApplicationController'
     end
 
