@@ -12,13 +12,13 @@ module Exceptio
 
       def call(env)
         #if Appsignal.active?
-          call_with_appsignal_monitoring(env)
+          call_with_exceptio(env)
         #else
           # @app.call(env)
         #end
       end
 
-      def call_with_appsignal_monitoring(env)
+      def call_with_exceptio(env)
         request = ActionDispatch::Request.new(env)
 
         recording = Exceptio::Recording.create(
@@ -39,6 +39,8 @@ module Exceptio
           recording.set_metadata("method", request.request_method)
           Exceptio::Recording.store!
           raise error
+        ensure
+          Exceptio::Recording.clear_current_recording!
         end
       end
 

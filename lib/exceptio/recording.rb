@@ -37,7 +37,7 @@ module Exceptio
       rescue => e
         Exceptio.logger.error("Failed to complete recording ##{current.recording_id}. #{e.message}")
       ensure
-        clear_current_transaction!
+        clear_current_recording!
       end
 
       # Remove current recording from current Thread.
