@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     exceptio (0.1.0)
-      rails (~> 5.1.0)
+      rails (~> 5)
 
 GEM
   remote: https://rubygems.org/
@@ -113,7 +113,7 @@ PLATFORMS
 
 DEPENDENCIES
   exceptio!
-  rails (~> 5.1.0)
+  rails (~> 5)
   sqlite3
 
 BUNDLED WITH
