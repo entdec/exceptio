@@ -63,7 +63,7 @@ module Exceptio
       return unless error
 
       backtrace = cleaned_backtrace(error.backtrace)
-      @error = {class_name: error.class.name, message: error.message.to_s, backtrace: backtrace || []}
+      @error = { class_name: error.class.name, message: error.message.to_s, backtrace: backtrace || [] }
     end
 
     def set_metadata(key, value = '')

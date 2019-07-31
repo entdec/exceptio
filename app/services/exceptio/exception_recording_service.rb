@@ -2,32 +2,31 @@
 
 module Exceptio
   class ExceptionRecordingService < ApplicationService
-    attr_reader :exception
-    def initialize(exception)
+    attr_reader :exception, :context
+
+    def initialize(exception, context = {})
       @exception = exception
+      @context = context
     end
 
-    def perform(context = {})
-      model = Exception.for(exception)
-      model.message ||= exception.message
-      model.backtrace ||= exception.backtrace.join("\n")
-      model.occurences ||= []
+    def perform
+      model = ::Exceptio::Exception.for(exception)
+      return if model.instances.size >= Exceptio.config.max_occurences
 
-      return if model.occurences.count >= 100
+      # Always update the backtrace, versions, code locations might change, want to deal with the latest only.
+      model.detailed_backtrace = BacktraceEnrichmentService.new(exception.backtrace).call
 
-      model.occurences << {
-        occurred_at: Time.now,
+      instance = model.instances.build(
         message: exception.message,
-        context: context
-      }
-      result = model.save
-      alert_chat(model) if model.occurences.count == 1 || model.occurences.count == 10 || model.occurences.count == 100
-      result
-    end
+        related_sgids: Exceptio.config.related_sgids || [],
+        context: Exceptio.config.context_details.merge(context)
+      )
 
-    def alert_chat(model)
-      ChatMessageJob.perform_later(Config.label, "Execution exception: #{model.message} occurence #{model.occurences.count}", channel: '#tech')
-    end
+      model.save
 
+      Exceptio.config.after_exception(model, instance)
+
+      nil
+    end
   end
 end

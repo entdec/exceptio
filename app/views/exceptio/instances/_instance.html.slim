@@ -1,0 +1,13 @@
+.row
+  .col-6=ln instance.created_at
+  .col-6
+    - instance.related_data.each do |data|
+      = link_to(data.second)
+        small
+          span= data.first.class.name
+          | :&nbsp;
+          strong= data.last
+      | &nbsp;
+  .col-12= instance.message
+- unless instance_iteration.last?
+  hr

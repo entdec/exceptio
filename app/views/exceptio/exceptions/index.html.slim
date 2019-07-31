@@ -1,0 +1,14 @@
+table.table
+  thead
+    tr
+      th Class
+      th Location
+      th Count
+      th Last occurred at
+  tbody
+    - @exceptions.each do |exception|
+      tr
+        td= link_to exception.exception_class, exception_path(exception)
+        td= link_to exception.code_location, exception_path(exception)
+        td= link_to exception.instances.size, exception_path(exception)
+        td= link_to exception.created_at, exception_path(exception)

@@ -2,7 +2,7 @@
 
 module Exceptio
   class Exception < ApplicationRecord
-    has_many :exception_instances, dependent: :destroy
+    has_many :instances, dependent: :destroy
 
     class << self
       def for(exception)

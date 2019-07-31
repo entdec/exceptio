@@ -4,16 +4,18 @@ module Exceptio
   class Error < StandardError; end
 
   class Configuration
-    attr_accessor :base_controller
-    attr_writer   :logger, :related_sgids, :sgid_to_link, :environment_details
+    attr_accessor :base_controller, :max_occurences
+    attr_writer   :logger, :related_sgids, :sgid_to_object_url_name, :context_details, :after_exception
 
     def initialize
       @logger = Logger.new(STDOUT)
       @logger.level = Logger::WARN
       @base_controller = '::ApplicationController'
-      @environment_details = -> { {} }
+      @context_details = -> { {} }
       @related_sgids = -> { [] }
-      @sgid_to_path_and_name = -> { nil }
+      @sgid_to_object_url_name = -> { nil }
+      @after_exception = -> {}
+      @max_occurences = 100
     end
 
     # Config: logger [Object].
@@ -26,14 +28,19 @@ module Exceptio
       instance_exec(&@related_sgids) if @related_sgids.is_a?(Proc)
     end
 
-    # Proc returning [path, name] for the specified sgid (path to and name of user or account)
-    def sgid_to_path_and_name(sgid)
-      instance_exec(&@sgid_to_link, sgid) if @sgid_to_link.is_a?(Proc)
+    # Proc returning [object, path, name] for the specified sgid (path to and name of user or account)
+    def sgid_to_object_url_name(sgid)
+      instance_exec(sgid, &@sgid_to_object_url_name) if @sgid_to_object_url_name.is_a?(Proc)
     end
 
     # Proc returning extra environment details (hash) to be stored with the exception
-    def environment_details
-      instance_exec(&@environment_details) if @environment_details.is_a?(Proc)
+    def context_details
+      context = instance_exec(&@context_details) if @context_details.is_a?(Proc)
+      context || {}
+    end
+
+    def after_exception(exception, instance)
+      instance_exec(exception, instance, &@after_exception) if @after_exception.is_a?(Proc)
     end
   end
 
