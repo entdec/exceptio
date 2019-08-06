@@ -26,7 +26,7 @@ module Exceptio
     # Find the relevant gem information
     def gem_data_for(line)
       gem_path = gems_data.keys.find { |gem_path| gem_path.starts_with?('/') ? line.starts_with?(gem_path) : line.include?(gem_path)}
-      gem_data = gems_data[gem_path]
+      gem_data = gems_data[gem_path].dup
       gem_data[:local_path] = line.gsub(%r{.*#{gem_path}\/?}, '') if gem_data
       gem_data
     end

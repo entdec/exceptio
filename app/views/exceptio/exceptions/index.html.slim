@@ -2,6 +2,7 @@ table.table
   thead
     tr
       th Class
+      th Message
       th Location
       th Count
       th Last occurred at
@@ -9,6 +10,7 @@ table.table
     - @exceptions.each do |exception|
       tr
         td= link_to exception.exception_class, exception_path(exception)
-        td= link_to exception.code_location, exception_path(exception)
+        td= link_to exception.message.to_s.truncate(40), exception_path(exception)
+        td= link_to exception.code_location.truncate(20), exception_path(exception)
         td= link_to exception.instances.size, exception_path(exception)
         td= link_to exception.created_at, exception_path(exception)
