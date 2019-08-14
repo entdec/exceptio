@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    exceptio (0.1.0)
+    exceptio (0.1.4)
       rails (~> 5)
 
 GEM

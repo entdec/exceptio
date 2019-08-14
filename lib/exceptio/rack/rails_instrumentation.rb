@@ -5,7 +5,7 @@ module Exceptio
   module Rack
     class RailsInstrumentation
       def initialize(app, options = {})
-        Exceptio.logger.debug 'Initializing Exceptio::Rack::RailsInstrumentation'
+        # Exceptio.logger.debug 'Initializing Exceptio::Rack::RailsInstrumentation'
         @app = app
         @options = options
       end
