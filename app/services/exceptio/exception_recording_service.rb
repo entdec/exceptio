@@ -11,6 +11,7 @@ module Exceptio
 
     def perform
       model = ::Exceptio::Exception.for(exception)
+      log :error, "processing exception: #{exception.message}"
       return if model.instances.size >= Exceptio.config.max_occurences
 
       # Always update the backtrace, versions, code locations might change, want to deal with the latest only.
