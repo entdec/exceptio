@@ -10,8 +10,10 @@ module Exceptio
     end
 
     def perform
-      model = ::Exceptio::Exception.for(exception)
       log :error, "processing exception: #{exception.message}"
+      raise StandardError, 'TESTMODE' if Rails.env.test?
+      model = ::Exceptio::Exception.for(exception)
+
       return if model.instances.size >= Exceptio.config.max_occurences
 
       # Always update the backtrace, versions, code locations might change, want to deal with the latest only.
