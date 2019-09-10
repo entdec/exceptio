@@ -11,7 +11,7 @@ module Exceptio
 
     def perform
       log :error, "processing exception: #{exception.message}"
-      raise StandardError, 'TESTMODE' if Rails.env.test?
+      raise exception if Rails.env.test?
       model = ::Exceptio::Exception.for(exception)
 
       return if model.instances.size >= Exceptio.config.max_occurences
@@ -22,7 +22,7 @@ module Exceptio
       instance = model.instances.build(
         message: exception.message,
         related_sgids: Exceptio.config.related_sgids || [],
-        context: Exceptio.config.context_details.merge(context)
+        context: Exceptio.config.context_details.merge(context).map {|k, v| [k, v.to_s] }.to_h
       )
 
       model.save!
