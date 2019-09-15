@@ -7,7 +7,7 @@ module Exceptio
     add_breadcrumb I18n.t('exceptio.breadcrumbs.exceptions'), :exceptions_path if defined? add_breadcrumb
 
     def index
-      @exceptions = ::Exceptio::Exception.all
+      @exceptions = ::Exceptio::Exception.all.order(updated_at: :desc)
     end
 
     def show

@@ -1,13 +1,13 @@
-.row
-  .col-6=ln instance.created_at
-  .col-6
-    - instance.related_data.each do |data|
-      = link_to(data.second)
-        small
-          span= data.first.class.name
-          | :&nbsp;
-          strong= data.last
-      | &nbsp;
-  .col-12= instance.message
-- unless instance_iteration.last?
-  hr
+= ui_card :instance, title: instance.message, title_right: ln(instance.created_at), state: (:closed unless instance_iteration.first?)
+  .row
+    table.table.narrow
+      - instance.related_data.each do |data|
+        tr
+          td= data.first.class.name
+          td
+            = link_to(data.second)
+              = data.last
+      - instance.context.each do |field, value|
+        tr
+          td= field
+          td= value

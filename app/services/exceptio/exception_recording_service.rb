@@ -12,9 +12,10 @@ module Exceptio
     def perform
       log :error, "processing exception: #{exception.message}"
       raise exception if Rails.env.test?
+
       model = ::Exceptio::Exception.for(exception)
 
-      return if model.instances.size >= Exceptio.config.max_occurences
+      return model.touch(:updated_at) if model.instances.size >= Exceptio.config.max_occurences
 
       # Always update the backtrace, versions, code locations might change, want to deal with the latest only.
       model.detailed_backtrace = BacktraceEnrichmentService.new(exception.backtrace).call

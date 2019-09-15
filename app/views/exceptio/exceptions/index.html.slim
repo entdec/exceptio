@@ -13,6 +13,6 @@ table.table
         td= link_to exception.message.to_s.truncate(40), exception_path(exception)
         td= link_to exception.code_location.truncate(20), exception_path(exception)
         td= link_to exception.instances.size, exception_path(exception)
-        td= link_to exception.created_at, exception_path(exception)
+        td= link_to exception.updated_at, exception_path(exception)
         td= link_to exception_path(exception), method: :delete
           i.fas.fa-trash
