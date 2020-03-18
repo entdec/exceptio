@@ -14,7 +14,7 @@ module Exceptio
       @context_details = -> { {} }
       @related_sgids = -> { [] }
       @sgid_to_object_url_name = -> { nil }
-      @after_exception = -> {}
+      @after_exception = ->(exception, instance) {}
       @max_occurences = 100
     end
 
