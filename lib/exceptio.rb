@@ -5,7 +5,7 @@ module Exceptio
 
   class Configuration
     attr_accessor :base_controller, :max_occurences
-    attr_writer   :logger, :related_sgids, :sgid_to_object_url_name, :context_details, :after_exception
+    attr_writer   :logger, :related_sgids, :sgid_to_object_url_name, :context_details, :after_exception, :layout, :admin_layout
 
     def initialize
       @logger = Logger.new(STDOUT)
@@ -16,6 +16,8 @@ module Exceptio
       @sgid_to_object_url_name = -> { nil }
       @after_exception = ->(exception, instance) {}
       @max_occurences = 100
+      @layout = 'application'
+      @admin_layout = 'application'
     end
 
     # Config: logger [Object].

@@ -1,18 +1,4 @@
-table.table
-  thead
-    tr
-      th Class
-      th Message
-      th Location
-      th Count
-      th Last occurred at
-  tbody
-    - @exceptions.each do |exception|
-      tr
-        td= link_to exception.exception_class, exception_path(exception)
-        td= link_to exception.message.to_s.truncate(40), exception_path(exception)
-        td= link_to exception.code_location.truncate(20), exception_path(exception)
-        td= link_to exception.instances.size, exception_path(exception)
-        td= link_to exception.updated_at, exception_path(exception)
-        td= link_to exception_path(exception), method: :delete
-          i.fas.fa-trash
+= ui_table :exceptio_exceptions
+
+- content_for :context_menu do
+  =< link_to('exceptio', root_path, class: 'ui-button')
