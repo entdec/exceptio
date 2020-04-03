@@ -30,7 +30,7 @@ module Exceptio
 
       Exceptio.config.after_exception(model, instance)
 
-      nil
+      model.id
     rescue StandardError => outer_exception
       Rails.logger.error '=' * 80
       Rails.logger.error "EXCEPTION SAVING EXCEPTION: #{outer_exception.message} DURING CAPTURE OF #{exception&.message}"
