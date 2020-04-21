@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    exceptio (0.1.4)
-      rails (~> 5)
+    exceptio (0.1.9)
+      rails (> 5.1)
 
 GEM
   remote: https://rubygems.org/
@@ -125,4 +125,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.17.1
+   1.17.2
