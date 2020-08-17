@@ -15,7 +15,10 @@ module Exceptio
 
       model = ::Exceptio::Exception.for(exception)
 
-      return model.touch(:updated_at) if model.instances.size >= Exceptio.config.max_occurences
+      if model.instances.size >= Exceptio.config.max_occurences
+        model.touch(:updated_at)
+        return model.id
+      end
 
       # Always update the backtrace, versions, code locations might change, want to deal with the latest only.
       model.detailed_backtrace = BacktraceEnrichmentService.new(exception.backtrace).call
@@ -38,6 +41,7 @@ module Exceptio
       Rails.logger.error '-' * 80
       Rails.logger.error "Inner: #{exception&.message}\n#{exception&.backtrace&.join("\n")}"
       Rails.logger.error '=' * 80
+      model&.id
     end
   end
 end
