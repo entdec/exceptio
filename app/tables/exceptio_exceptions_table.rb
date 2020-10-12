@@ -10,7 +10,7 @@ class ExceptioExceptionsTable < ActionTable::ActionTable
   column(:last_occurence, sort_field: :updated_at) { |exception| ln exception.updated_at }
   column(:actions) { |exception| link_to '<i class="fas fa-trash"></i>'.html_safe, exceptio.exception_path(exception), method: :delete }
 
-  initial_order :updated_at, :desc
+  initial_order :last_occurence, :desc
 
   row_link { |exception| exceptio.exception_path(exception) }
 
