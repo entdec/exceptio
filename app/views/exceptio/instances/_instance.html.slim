@@ -1,6 +1,6 @@
 = ui_card :instance, title: instance.message, title_right: ln(instance.created_at), state: (:closed unless instance_iteration.first?)
-  .row
-    table.table.narrow
+  .ui-row
+    table.ui-table.narrow
       - instance.related_data.each do |data|
         tr
           td= data.first.class.name

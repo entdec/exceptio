@@ -1,7 +1,7 @@
-h2= @exception.message
+h3= @exception.message
 .row
   .col-6
     = render @exception.instances
   .col-6
-    = ui_card :backtrace
+    = ui_card :backtrace, title: 'Backtrace'
       = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys)
