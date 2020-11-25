@@ -1,4 +1,6 @@
-= ui_table :exceptio_exceptions
+= clg.card title: t('.title') do |card|
+  = clg.action_table :exceptio_exceptions
+  - card.slot :footer
 
 - content_for :context_menu do
   =< link_to('exceptio', root_path, class: 'ui-button')

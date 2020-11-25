@@ -1,7 +1,9 @@
 h3= @exception.message
-.row
-  .col-6
-    = render @exception.instances
-  .col-6
-    = ui_card :backtrace, title: 'Backtrace'
-      = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys)
+= clg.layout do |layout|
+  - layout.row
+    - layout.cell basis: '50%'
+      = render @exception.instances
+    - layout.cell basis: '50%'
+      = clg.card title: 'Backtrace' do |card|
+        table.ui-table.narrow
+          = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys), locals: { layout: layout }

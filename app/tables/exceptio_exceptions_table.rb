@@ -17,12 +17,6 @@ class ExceptioExceptionsTable < ActionTable::ActionTable
   private
 
   def scope
-    @scope = Exceptio::Exception.all
-  end
-
-  def filtered_scope
-    @filtered_scope = scope
-
-    @filtered_scope
+    @scope ||= Exceptio::Exception.all
   end
 end

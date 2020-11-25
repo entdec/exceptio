@@ -1,13 +1,14 @@
-= ui_card :instance, title: instance.message, title_right: ln(instance.created_at), state: (:closed unless instance_iteration.first?)
-  .ui-row
-    table.ui-table.narrow
-      - instance.related_data.each do |data|
-        tr
-          td= data.first.class.name
-          td
-            = link_to(data.second)
-              = data.last
-      - instance.context.each do |field, value|
-        tr
-          td= field
-          td= value
+= clg.card title: instance.message do |card|
+  - card.slot :action
+    = ln(instance.created_at)
+  table.ui-table.narrow
+    - instance.related_data.each do |data|
+      tr
+        td= data.first.class.name
+        td
+          = link_to(data.second)
+            = data.last
+    - instance.context.each do |field, value|
+      tr
+        td= field
+        td= value
