@@ -1,7 +1,14 @@
+GIT
+  remote: git@code.entropydecelerator.com:components/auxilium.git
+  revision: be3b32de122501891f833e74b44d306c2ecaffd0
+  specs:
+    auxilium (0.2.0)
+      activesupport (> 5.1)
+
 PATH
   remote: .
   specs:
-    exceptio (0.1.16)
+    exceptio (0.1.19)
       rails (> 5.1)
 
 GEM
@@ -120,9 +127,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  auxilium (~> 0.2)!
   exceptio!
   rails (~> 5)
   sqlite3
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
