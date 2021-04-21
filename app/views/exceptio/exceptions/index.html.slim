@@ -1,6 +1,6 @@
-= clg.card title: t('.title') do |card|
+= clg.card title: "Exceptions" do |card|
   = clg.action_table :exceptio_exceptions
   - card.slot :footer
-
-- content_for :context_menu do
-  =< link_to('exceptio', root_path, class: 'ui-button')
+  - card.slot :action
+    = link_to(delete_all_exceptions_path, class: 'clg-button clg-button--alert', 'data-confirm': 'Are you sure?', 'data-method': :post)
+      i.clg-fa-trash

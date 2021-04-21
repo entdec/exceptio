@@ -1,9 +1,14 @@
-h3= @exception.message
-= clg.layout do |layout|
-  - layout.row
-    - layout.cell basis: '50%'
-      = render @exception.instances
-    - layout.cell basis: '50%'
-      = clg.card title: 'Backtrace' do |card|
-        table.ui-table.narrow
-          = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys), locals: { layout: layout }
+= clg.card title: @exception.message do |card|
+  - card.slot :action
+    = link_to exception_path(@exception), method: :delete, class: 'clg-button clg-button--alert', 'data-confirm': 'Are you sure?'
+      i.clg-fa-trash
+  = clg.layout do |layout|
+    - layout.row
+      - layout.cell
+        = clg.tabbable_pane do |pane|
+          - pane.slot :tab, id: "backtrace", title: 'Backtrace'
+            table.clg-at-table
+              = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys), locals: { layout: layout }
+          - @exception.instances.order(created_at: :desc).limit(10).each do |instance|
+            - pane.slot :tab, id: "instance_#{instance.id}", title: ln(instance.created_at)
+              = render instance

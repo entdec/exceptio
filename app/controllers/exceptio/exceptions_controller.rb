@@ -4,21 +4,23 @@
 
 module Exceptio
   class ExceptionsController < ::Exceptio::ApplicationController
-    add_breadcrumb I18n.t('exceptio.breadcrumbs.exceptions'), :exceptions_path if defined? add_breadcrumb
-
     def index
       @exceptions = ::Exceptio::Exception.all.order(updated_at: :desc)
     end
 
     def show
       @exception = ::Exceptio::Exception.find(params[:id])
-      add_breadcrumb(@exception.exception_class, exception_path(@exception)) if defined? add_breadcrumb
     end
 
     def destroy
       @exception = ::Exceptio::Exception.find(params[:id])
       @exception.destroy
-      redirect_to action: :index
+      redirect_to action: :index, status: :see_other
+    end
+
+    def delete_all
+      ::Exceptio::Exception.destroy_all
+      redirect_to action: :index, status: :see_other
     end
   end
 end

@@ -1,14 +1,17 @@
-= clg.card title: instance.message do |card|
-  - card.slot :action
+= clg.details_view column_count: 1 do |details|
+  - details.item :error, label: t('.error')
+    = instance.message
+  - details.item :created, label: t('.created_at')
     = ln(instance.created_at)
-  table.ui-table.narrow
-    - instance.related_data.each do |data|
-      tr
-        td= data.first.class.name
-        td
-          = link_to(data.second)
-            = data.last
-    - instance.context.each do |field, value|
-      tr
-        td= field
-        td= value
+br
+table.clg-at-table
+  - instance.related_data.each do |data|
+    tr
+      td= data.first.class.name
+      td
+        = link_to(data.second)
+          = data.last
+  - instance.context.each do |field, value|
+    tr
+      td= field
+      td= value
