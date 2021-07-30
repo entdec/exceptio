@@ -1,8 +1,7 @@
-= clg.details_view column_count: 1 do |details|
-  - details.item :error, label: t('.error')
-    = instance.message
-  - details.item :created, label: t('.created_at')
-    = ln(instance.created_at)
+= sts.info class: "grid grid-cols-1 gap-4 sm:grid-cols-3" do |info|
+  = info.item :error, content: instance.message, class: "sm:col-span-1"
+  = info.item :created_at, content: ln(instance.created_at), class: "sm:col-span-1", icon: 'fal fa-calendar'
+
 br
 table.clg-at-table
   - instance.related_data.each do |data|

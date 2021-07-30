@@ -1,14 +1,11 @@
-= clg.card title: @exception.message do |card|
-  - card.slot :action
-    = link_to exception_path(@exception), method: :delete, class: 'clg-button clg-button--alert', 'data-confirm': 'Are you sure?'
-      i.clg-fa-trash
-  = clg.layout do |layout|
-    - layout.row
-      - layout.cell
-        = clg.tabbable_pane do |pane|
-          - pane.slot :tab, id: "backtrace", title: 'Backtrace'
-            table.clg-at-table
-              = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys), locals: { layout: layout }
-          - @exception.instances.order(created_at: :desc).limit(10).each do |instance|
-            - pane.slot :tab, id: "instance_#{instance.id}", title: ln(instance.created_at)
-              = render instance
+= sts.card title: @exception.message do |card|
+  - card.action
+    = link_to exception_path(@exception), method: :delete, class: 'button', 'data-confirm': 'Are you sure?'
+      i.fa.fa-trash
+  = card.tab :backtrace do
+    table.clg-at-table
+      = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys), locals: { layout: layout }
+
+  - @exception.instances.order(created_at: :desc).limit(10).each do |instance|
+    - card.tab "instance_#{instance.id}"
+      = render instance
