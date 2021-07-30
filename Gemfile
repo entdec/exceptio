@@ -16,4 +16,4 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 gem 'rails', '~> 5'
-gem 'auxilium', '~> 0.2', entdec: 'components/auxilium'
+gem 'auxilium', '~> 3', entdec: 'components/auxilium'
