@@ -1,9 +1,10 @@
-= sts.info class: "grid grid-cols-1 gap-4 sm:grid-cols-3" do |info|
-  = info.item :error, content: instance.message, class: "sm:col-span-1"
-  = info.item :created_at, content: ln(instance.created_at), class: "sm:col-span-1", icon: 'fal fa-calendar'
+.px-6.py-6
+  = sts.info class: "grid grid-cols-1 gap-4 sm:grid-cols-3" do |info|
+    = info.item :error, content: instance.message, class: "sm:col-span-1"
+    = info.item :created_at, content: ln(instance.created_at), class: "sm:col-span-1", icon: 'fal fa-calendar'
 
 br
-table.clg-at-table
+table.sts-table
   - instance.related_data.each do |data|
     tr
       td= data.first.class.name

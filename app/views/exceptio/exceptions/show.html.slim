@@ -3,8 +3,8 @@
     = link_to exception_path(@exception), method: :delete, class: 'button', 'data-confirm': 'Are you sure?'
       i.fa.fa-trash
   = card.tab :backtrace do
-    table.clg-at-table
-      = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys), locals: { layout: layout }
+    table.sts-table
+      = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys)
 
   - @exception.instances.order(created_at: :desc).limit(10).each do |instance|
     - card.tab "instance_#{instance.id}"
