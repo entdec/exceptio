@@ -17,6 +17,7 @@ module Exceptio
 
       if model.instances.size >= Exceptio.config.max_occurences
         model.touch(:updated_at)
+        Exceptio.config.after_exception(model, nil)
         return model.id
       end
 
