@@ -15,13 +15,10 @@ module Exceptio
 
       model = ::Exceptio::Exception.for(exception)
 
-      if model.instances.size >= Exceptio.config.max_occurences
-        model.touch(:updated_at)
-        Exceptio.config.after_exception(model, nil)
-        return model.id
+      if model.instances.size > 0 && model.instances.size >= Exceptio.config.max_occurences
+        model.instances.order(created_at: :asc).first.destroy
       end
 
-      # Always update the backtrace, versions, code locations might change, want to deal with the latest only.
       model.detailed_backtrace = BacktraceEnrichmentService.new(exception.backtrace).call
 
       instance = model.instances.build(
