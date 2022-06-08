@@ -11,7 +11,7 @@ module Exceptio
 
     def perform
       log :error, "processing exception: #{exception.message}"
-      raise exception if Rails.env.test?
+      # raise exception if Rails.env.test?
 
       model = ::Exceptio::Exception.for(exception)
 
