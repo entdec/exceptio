@@ -1,6 +1,6 @@
 = sts.card title: @exception.message do |card|
   - card.action
-    = link_to exception_path(@exception), method: :delete, class: 'button', 'data-confirm': 'Are you sure?'
+    = link_to exception_path(@exception), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'button'
       i.fa.fa-trash
   = card.tab :backtrace do
     table.sts-table
