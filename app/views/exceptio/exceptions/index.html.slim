@@ -1,5 +1,5 @@
 = sts.card title: t('.exceptions'), icon: 'fad fa-triangle-exclamation', content_padding: false do |card|
   - card.action
-    = link_to(delete_all_exceptions_path, class: 'button bg-red-300', 'data-confirm': 'Are you sure?', 'data-method': :post)
+    = link_to(delete_all_exceptions_path, class: 'button bg-red-300', data: { turbo_confirm: 'Are you sure?', turbo_method: :post })
       i.fal.fa-trash
   = sts.table :exceptio_exceptions
