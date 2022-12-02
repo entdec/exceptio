@@ -1,17 +1,14 @@
 # Exceptio
-Short description and motivation.
 
-## Usage
-How to use my plugin.
+Exception logging and management
 
-## Installation
+## Installation and Usage
+
 Add this line to your application's Gemfile:
 
 ```ruby
 gem 'exceptio'
 ```
-
-
 
 Add to ApplicationController
 

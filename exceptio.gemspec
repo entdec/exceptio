@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Exceptio::VERSION
   s.authors     = ['Tom de Grunt']
   s.email       = ['tom@degrunt.nl']
-  s.homepage    = 'https://code.entropydecelerator.com/components/exceptio'
+  s.homepage    = 'https://github.com/entdec/exceptio'
   s.summary     = 'Exception logging and management'
   s.description = 'Exception logging and management'
   s.license     = 'MIT'
