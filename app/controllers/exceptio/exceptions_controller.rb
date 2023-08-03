@@ -5,6 +5,7 @@
 module Exceptio
   class ExceptionsController < ::Exceptio::ApplicationController
     def index
+      redirect_to main_app.root_path unless Current.user && (Current.user.is_admin? || Current.user.is_billing_admin?)
       @exceptions = ::Exceptio::Exception.all.order(updated_at: :desc)
     end
 
