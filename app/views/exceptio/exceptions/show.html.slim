@@ -1,4 +1,4 @@
-= sts.card title: @exception.message do |card|
+= sts.card :exceptio_exceptions, title: @exception.message do |card|
   - card.action
     = link_to exception_path(@exception), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'button'
       i.fa.fa-trash
