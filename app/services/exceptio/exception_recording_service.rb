@@ -28,6 +28,10 @@ module Exceptio
         related_sgids: Exceptio.config.related_sgids || [],
         context: Exceptio.config.context_details.merge(context).map {|k, v| [k, v.to_s] }.to_h
       )
+      
+      if exception.try(:record)
+        instance.exceptio_exceptionable = exception.record
+      end
 
       model.save!
 

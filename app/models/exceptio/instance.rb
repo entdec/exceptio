@@ -3,6 +3,7 @@
 module Exceptio
   class Instance < ApplicationRecord
     belongs_to :exception, counter_cache: true, touch: :last_instance_at
+    belongs_to :exceptio_exceptionable, polymorphic: true, optional: true
 
     def related_objects
       related_data.map(&:first).compact
