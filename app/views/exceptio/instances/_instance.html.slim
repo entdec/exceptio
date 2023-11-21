@@ -37,6 +37,8 @@
                 =  link_to(thing.name, order_path(thing))
               - elsif thing.is_a?(Shipment)
                 =  link_to(thing.name, shipment_path(thing))
-              -else
+              - elsif thing.is_a?(Nuntius::Message)
+                =  link_to(thing.transport.upcase, Nuntius::Engine.routes.url_helpers.admin_message_path(thing))
+              - else
                 =  link_to(thing)
               br
