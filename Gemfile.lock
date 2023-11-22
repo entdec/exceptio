@@ -13,7 +13,7 @@ GIT
 PATH
   remote: .
   specs:
-    exceptio (0.1.29)
+    exceptio (0.1.30)
       rails (> 5.1)
 
 GEM

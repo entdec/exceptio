@@ -18,7 +18,7 @@
           textarea data-controller="editor" data-editor-target="textarea" data-editor-mode="ruby" data-editor-height="400px" data-editor-readonly="true" = value
           - if field == "job"
             - gids = []
-            - hashes = eval(value)["args"].map{|a| a["arguments"]}.first.select{|i| i.is_a?(Hash)}
+            - hashes = eval(value)["args"].compact.map {|a| a.is_a?(Hash) ?  a["arguments"] : nil}.compact.first&.select{|i| i.is_a?(Hash)} || []
             - hashes.each do  |h|
               - h.each do |h1, v1|
                 - if v1.is_a?(Hash)
