@@ -39,6 +39,10 @@
                 =  link_to(thing.name, shipment_path(thing))
               - elsif thing.is_a?(Nuntius::Message)
                 =  link_to(thing.transport.upcase, Nuntius::Engine.routes.url_helpers.admin_message_path(thing))
+              - elsif thing.is_a?(Integration)
+                = link_to(thing.name, admin_integration_path(thing))
+              - elsif thing.is_a?(Vorto::Flow)
+                = link_to(thing.name, Vorto::Engine.routes.url_helpers.flow_path(thing))
               - else
                 =  link_to(thing)
               br
