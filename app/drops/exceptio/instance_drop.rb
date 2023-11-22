@@ -1,5 +1,5 @@
 module Exceptio
   class InstanceDrop < ApplicationDrop
-    delegate :id, :exception_id, :message, :context, :exceptio_exceptionable_id, :exceptio_exceptionable_type, to: :@object
+    delegate :id, :exception, :exception_id, :message, :context, :exceptio_exceptionable, :exceptio_exceptionable_id, :exceptio_exceptionable_type, :log_lines, to: :@object
   end
 end
