@@ -43,6 +43,6 @@
                 = link_to(thing.name, admin_integration_path(thing))
               - elsif thing.is_a?(Vorto::Flow)
                 = link_to(thing.name, Vorto::Engine.routes.url_helpers.flow_path(thing))
-              - else
-                =  link_to(thing)
+              - elsif ![Exceptio::Instance].member?(thing.class)
+                = link_to(thing)
               br
