@@ -1,11 +1,11 @@
 = sts.card :exceptio_exceptions, title: @exception.message do |card|
-  - card.action
+  - card.with_action
     = link_to exception_path(@exception), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'button'
       i.fa.fa-trash
-  = card.tab :backtrace do
+  = card.with_tab:backtrace do
     table.sts-table
       = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys)
 
   - @exception.instances.order(created_at: :desc).limit(10).each do |instance|
-    - card.tab "instance_#{instance.id}"
+    - card.with_tab"instance_#{instance.id}"
       = render instance

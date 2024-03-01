@@ -1,10 +1,10 @@
 .grid.grid-cols-1.gap-4.px-6.py-6.sm:grid-cols-3
   .sm:col-span-3
     = sts.info class: "grid grid-cols-1 gap-4 sm:grid-cols-2" do |info|
-      = info.item :error, content: instance.message, class: "sm:col-span-1"
-      = info.item :created_at, content: ln(instance.created_at), class: "sm:col-span-1", icon: 'fal fa-calendar'
-      = info.item :exceptionable_id, content: instance.exceptio_exceptionable_id, class: "sm:col-span-1"
-      = info.item :exceptionable_type, content: instance.exceptio_exceptionable_type, class: "sm:col-span-1"
+      = info.with_item :error, content: instance.message, class: "sm:col-span-1"
+      = info.with_item :created_at, content: ln(instance.created_at), class: "sm:col-span-1", icon: 'fal fa-calendar'
+      = info.with_item :exceptionable_id, content: instance.exceptio_exceptionable_id, class: "sm:col-span-1"
+      = info.with_item :exceptionable_type, content: instance.exceptio_exceptionable_type, class: "sm:col-span-1"
     br
     - instance.related_data.each do |data|
       .col-span-1.sm:col-span-1
