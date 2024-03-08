@@ -29,6 +29,8 @@ module Exceptio
       return {} unless context.key?('job')
 
       JSON.parse(context['job'])
+    rescue
+      eval(context['job']) # Yuk
     end
 
     def job?
