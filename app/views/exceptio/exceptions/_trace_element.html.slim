@@ -1,3 +1,15 @@
-tr
-  td = trace_element[:name]
-  td #{trace_element[:file]}:#{trace_element[:line]}
+li.relative.flex.gap-x-4
+  .absolute.left-0.top-0.flex.w-6.justify-center.-bottom-6
+    .w-px.bg-gray-200
+  .relative.flex.h-6.w-6.flex-none.items-center.justify-center.bg-white
+    - if trace_element[:file].starts_with?("app")
+      .ml-1.h-6.w-6.text-primary-600
+        i.fas.fa-circle-exclamation
+    - else
+      .h-1.5.w-1.5.rounded-full.bg-gray-100.ring-1.ring-gray-300
+
+  p.flex-auto.py-1.text-xs.leading-5.text-gray-500
+    span.font-medium.text-gray-900
+      = trace_element[:name]
+  time.flex-none.py-0.5.text-xs.leading-5.text-gray-500[datetime="2023-01-23T10:32"]
+    = "#{trace_element[:file]}:#{trace_element[:line]}"

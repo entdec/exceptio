@@ -26,7 +26,7 @@ module Exceptio
       instance = model.instances.build(
         message: exception.message,
         related_sgids: Exceptio.config.related_sgids || [],
-        context: Exceptio.config.context_details.merge(context).map {|k, v| [k, v.to_s] }.to_h
+        context: Exceptio.config.context_details.merge(context).map {|k, v| [k, JSON.dump(v)] }.to_h
       )
       
       if exception.try(:record)

@@ -15,5 +15,7 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-gem 'rails', '> 5'
+gem 'rails', '>= 7'
 gem 'auxilium', '~> 3', entdec: 'entdec/auxilium'
+gem 'pry'
+gem "sprockets-rails"
