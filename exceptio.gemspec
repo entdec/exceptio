@@ -20,4 +20,11 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'auxilium', '~> 0.2'
   s.add_development_dependency 'sqlite3'
+  s.add_dependency 'chartkick'
+  s.add_dependency 'groupdate'
+  s.add_dependency "slim-rails", "~> 3"
+  s.add_dependency 'tailwindcss-rails'
+  s.add_dependency 'importmap-rails'
+  s.add_dependency 'turbo-rails'
+  s.add_dependency 'stimulus-rails'
 end

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Exceptio
-  VERSION = '0.1.28'
+  VERSION = '0.1.36'
 end

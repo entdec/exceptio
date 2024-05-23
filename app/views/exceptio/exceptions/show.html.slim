@@ -1,11 +1,74 @@
-= sts.card :exceptio_exceptions, title: @exception.message do |card|
-  - card.action
+= sts.card :exceptio_exceptions, title: @exception.exception_class, description: @exception.code_location do |card|
+  - card.with_action
     = link_to exception_path(@exception), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'button'
-      i.fa.fa-trash
-  = card.tab :backtrace do
-    table.sts-table
-      = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys)
+      i.fas.fa-trash
+  - card.with_tab :exception, padding: true
+    .grid.grid-cols-4.gap-4.mb-4
+      .col-span-3
+        h1 = @exception.exception_class
+        pre.text-xs style="height: 400px; overflow-y: scroll;"
+          code
+            = @exception.message
+      .col-span-1
+        = column_chart @exception.instances.group_by_day(:created_at).count
 
-  - @exception.instances.order(created_at: :desc).limit(10).each do |instance|
-    - card.tab "instance_#{instance.id}"
-      = render instance
+    .grid.grid-cols-4.gap-4
+      .col-span-3
+        ul role="list" class="space-y-6"
+          = render partial: 'trace_element', collection: @exception.detailed_backtrace.map(&:symbolize_keys)
+      .col-span-1
+
+  - card.with_tab :instances, padding: true, badge: @exception.instances_count
+    .flow-root
+      ul.list-none.-mb-8
+        - @exception.instances.order(created_at: :desc).limit(10).each do |instance|
+          li
+            .relative.pb-8
+              span.absolute.left-5.top-5.-ml-px.h-full.w-0.5.bg-gray-200
+              .relative.flex.items-start.space-x-3
+                .relative
+                  .flex.h-10.w-10.items-center.justify-center.rounded-full.bg-gray-100.ring-8.ring-white
+                    - if instance.job?
+                      i.fas.fa-dumbbell
+                    - elsif instance.web?
+                      i.fas.fa-globe
+
+                .min-w-0.flex-1
+                  div
+                    .text-sm
+                      // could be a linK?
+                      .font-medium.text-gray-900
+                        = instance.message
+                    p.mt-1.text-sm.text-gray-500
+                      = ln(instance.created_at)
+                    - if instance.browser
+                      span.mr-1
+                        - if instance.browser.chrome?
+                          i.fab.fa-chrome
+                        - elsif instance.browser.firefox?
+                          i.fab.fa-chrome
+                        - elsif instance.browser.edge?
+                          i.fab.fa-edge
+                        - else
+                          i.fab.fa-safari
+                      span.mr-1
+                        - if instance.browser.platform.windows?
+                          i.fab.fa-windows
+                        - elsif instance.browser.platform.mac?
+                          i.fab.fa-apple
+                        - elsif instance.browser.platform.linux?
+                          i.fab.fa-linux
+
+                  .mt-2.text-sm.text-gray-700
+                    = sts.info class: "grid grid-cols-1 gap-4 sm:grid-cols-3 mt-5" do |info|
+                      = info.with_item :path, class: "sm:col-span-1"
+                        - instance.request_env['REQUEST_URI']
+                      = info.with_item :method, class: "sm:col-span-1"
+                        - instance.request_env['REQUEST_METHOD']
+                      = info.with_item :remote_ip, class: "sm:col-span-1"
+                        - instance.request_env['REMOTE_ADDR']
+                      = info.with_item :queue, class: "sm:col-span-1"
+                        - instance.job['queue']
+                    /= instance.context
+
+
