@@ -1,0 +1,16 @@
+en:
+  exceptio:
+    exceptions:
+      index:
+        exceptions: Exceptions
+      show:
+        tabs:
+          main:
+            tab:
+              exception: Exceptions
+              instances: Instances
+        info_item:
+          main:
+            path: Path
+            method: Method
+            remote_ip: Extern IP

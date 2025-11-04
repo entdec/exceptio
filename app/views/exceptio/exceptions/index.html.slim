@@ -2,4 +2,4 @@
   - card.with_action
     = link_to(delete_all_exceptions_path, class: 'button bg-red-300', data: { turbo_confirm: 'Are you sure?', turbo_method: :post })
       i.fal.fa-trash
-  = card.table :exceptio_exceptions, custom_views: true
+  = sts.table :exceptio_exceptions

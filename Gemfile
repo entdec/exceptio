@@ -17,5 +17,6 @@ gemspec
 
 gem 'rails', '>= 7'
 gem 'auxilium', '~> 3', entdec: 'entdec/auxilium'
+gem 'mensa', '~> 0.1', entdec: 'entdec/mensa'
 gem 'pry'
 gem "sprockets-rails"

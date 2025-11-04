@@ -1,0 +1,16 @@
+nl:
+  exceptio:
+    exceptions:
+      index:
+        exceptions: Execpties
+      show:
+        tabs:
+          main:
+            tab:
+              exception: Exceptie
+              instances: Instanties
+        info_item:
+          main:
+            path: Pad
+            method: Methode
+            remote_ip: Extern IP
