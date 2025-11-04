@@ -2,7 +2,7 @@ nl:
   exceptio:
     exceptions:
       index:
-        exceptions: Execpties
+        exceptions: Excepties
       show:
         tabs:
           main:
