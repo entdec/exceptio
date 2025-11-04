@@ -27,6 +27,8 @@ Add to ApplicationController
 
 ```ruby
 def error_render_method(exception)
+  raise exception if Rails.env.development?
+
   Exceptio::ExceptionRecordingService.new(exception, request_env: request.env).call
 
   respond_to do |type|
